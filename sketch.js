@@ -36,7 +36,7 @@ function draw() {
 }
 }
 function keyPressed() {
- console.log('You pressed: " + key);
+ console.log("You pressed: " + key);
   if (key === 'p');
   isPaused = !isPaused;
   }
