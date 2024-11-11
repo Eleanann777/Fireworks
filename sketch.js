@@ -27,3 +27,10 @@ function draw() {
     }
   }
 }
+function keyPressed() {
+  console.log("Key pressed: " + key);
+  if (key === 'p' || key === 'P') {
+    console.log("hey that was the P key!");
+    isPaused = !isPaused;
+  }
+}
