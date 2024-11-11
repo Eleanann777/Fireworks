@@ -1,6 +1,6 @@
 const fireworks = [];
 let gravity;
-var (isPaused) = false;
+var isPaused = false;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB);
