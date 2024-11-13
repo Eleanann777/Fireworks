@@ -13,7 +13,7 @@ function setup() {
 function draw() {
   if (isPaused) {
     push();
-    testSize(100);
+    textSize(100);
     textAlign(CENTER, CENTER);
     text("PAUSED", width/2, height/2);
     pop();
