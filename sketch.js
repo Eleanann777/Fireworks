@@ -15,9 +15,9 @@ function draw() {
     push();
     testSize(100);
     textAlign(CENTER, CENTER);
-    text("PAUSED", width/2, hight/2);
+    text("PAUSED", width/2, height/2);
     pop();
-} else {
+ } else {
     colorMode(RGB);
     background(0, 0, 0, 25);
     
@@ -36,8 +36,8 @@ function draw() {
 }
 }
 function keyPressed() {
- console.log("You pressed: " + key);
-  if (key === 'p');
-  isPaused = !isPaused;
+  console.log("You pressed: " + key);
+  if (key === 'p') {
+   isPaused = !isPaused;
   }
 }
