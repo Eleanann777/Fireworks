@@ -2,7 +2,7 @@ const fireworks = [];
 let gravity;
 var isPaused = false;
 const craters = [];
-const building = [];
+const buildings = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
