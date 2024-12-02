@@ -62,6 +62,7 @@ function drawBackground(alpha) {
 
 function drawSkyline(alpha) {
   push();
+  if(buildings.length === 0) {
     const numBuildings = 30;
     let xOffset = 0;
     for (let i = 0; i < numBuildings; ++i) {
@@ -77,7 +78,7 @@ function drawSkyline(alpha) {
       xOffset = xOffset + buildingWidth + spaceBetweenBuildings;
       buildings.push([buildingLocation, height - buildingHeight, buildingWidth, buildingHeight]);
     }
-  
+  }
   noStroke();
   fill(100, 100, 100, alpha);
   
