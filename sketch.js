@@ -77,7 +77,6 @@ function drawSkyline(alpha) {
       xOffset = xOffset + buildingWidth + spaceBetweenBuildings;
       buildings.push([buildingLocation, height - buildingHeight, buildingWidth, buildingHeight]);
     }
-  }
   
   noStroke();
   fill(100, 100, 100, alpha);
@@ -97,7 +96,7 @@ function drawSkyline(alpha) {
  
   pop();
 
-
+}
 function drawMoon(alpha) {
   push();
   const moonRadius = min(width, height) / 5;
