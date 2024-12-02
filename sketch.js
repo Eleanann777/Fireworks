@@ -1,8 +1,13 @@
+// Daniel Shiffman
+// http://codingtra.in
+// https://youtu.be/CKeyIbT3vXI
+
 const fireworks = [];
 let gravity;
-var isPaused = false;
+let isPaused = false;
 const craters = [];
 const buildings = [];
+const windows = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -14,13 +19,17 @@ function setup() {
 }
 
 function draw() {
- 
+  
   drawBackground(100);
   
   if (isPaused) {
     push();
+    strokeWeight(20);
+    stroke("black");
+    fill("white");
     textSize(100);
     textAlign(CENTER, CENTER);
+    textFont("Impact");
     text("PAUSED", width/2, height/2);
     pop();
   } else {
@@ -41,37 +50,73 @@ function draw() {
     }
   }
 }
+
 function drawBackground(alpha) {
   push();
- 
+  
   colorMode(RGB);
- 
   drawMoon(alpha);
   drawSkyline(alpha);
   pop();
 }
+
+function drawSkyline(alpha) {
+  push();
+    const numBuildings = 30;
+    let xOffset = 0;
+    for (let i = 0; i < numBuildings; ++i) {
+      let buildingHeight = random(height/30, height/3);
+      let buildingWidth = random(width/20, width/10);
+      let buildingLocation = xOffset; 
+      
+      let spaceBetweenBuildings = 0;
+      if (random() > 0.5) {
+        spaceBetweenBuildings = random(1, 10);
+      }
+      
+      xOffset = xOffset + buildingWidth + spaceBetweenBuildings;
+      buildings.push([buildingLocation, height - buildingHeight, buildingWidth, buildingHeight]);
+    }
+  }
+  
+  noStroke();
+  fill(100, 100, 100, alpha);
+  
+  for(let i = 0; i < buildings.length; i++) {
+    let building = buildings[i];
+    rect(building[0], building[1], building[2], building[3]);
+    
+  }
+  
+  fill(100, 100, 23, alpha);
+  for (let i = 0; i < windows.length; i++) {
+    let window = windows[i];
+    rect(window[0], window[1], window[2], window[3]);
+    
+  }
+ 
+  pop();
+
 
 function drawMoon(alpha) {
   push();
   const moonRadius = min(width, height) / 5;
   const moonX = width / 3;
   const moonY = height / 2.5;
-
+  
   noStroke();
- 
-  fill(200, alpha);
+  
   circle(moonX, moonY, moonRadius);
   fill(100, alpha);
-
-  // Clip the craters to the moon
+  
+  
   drawingContext.save();
   push();
   circle(moonX, moonY, moonRadius);
   pop();  
   drawingContext.clip();
-
-
   
+ 
   if (craters.length === 0) {
     const numCraters = 10;
     for (let i = 0; i < numCraters; ++i) {
@@ -82,38 +127,24 @@ function drawMoon(alpha) {
       craters.push([craterX, craterY, craterWidth, craterHeight]);
     }
   }
-
   
-  craters.forEach((crater) => {
-    ellipse(...crater);  
-  });
-
-  drawingContext.restore();
-  pop();
-}
-
-function drawSkyline(alpha) {
-  push();
-
   
-  if (buildings.length === 0) {
-
-    
-    let buildingHeight = random(height/30, height/4);
-    let buildingWidth = random(width/20, width/10);
-    let buildingLocation = 0; 
-    buildings.push([buildingLocation, height - buildingHeight, buildingWidth, buildingHeight]);
+  for(let i = 0; i < craters.length; i++)   {
+    let crater = craters[i];
+    ellipse(crater[0], crater[1], crater[2], crater[3]);
   }
-
-  noStroke();
-  fill(100, alpha);
-  buildings.forEach(building => rect(...building));
+ 
+  drawingContext.restore();
   pop();
 }
 
 function keyPressed() {
   console.log("You pressed: " + key);
-  if (key === 'p') {
-   isPaused = !isPaused;
-  }
+  if (key === 'p') 
+    if (isPaused) {
+      isPaused = false;
+    } else {
+      isPaused = true;
+    }
+  
 }
