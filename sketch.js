@@ -5,7 +5,7 @@ const craters = [];
 const buildings = [];
 const windows = [];
 const staticClouds = [];
-const stars = []; // Array to store stars
+const stars = []; 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,12 +15,12 @@ function setup() {
   strokeWeight(4);
   background(0);
 
-  // Generate static clouds
+ 
   for (let i = 0; i < 7; i++) {
     staticClouds.push(new StaticCloud());
   }
 
-  // Generate stars
+ 
   const numStars = 300;
   for (let i = 0; i < numStars; i++) {
     stars.push(new Star());
@@ -44,12 +44,12 @@ function draw() {
     colorMode(RGB);
     background(0, 0, 0, 25);
 
-    // Draw static clouds
+    
     for (let cloud of staticClouds) {
       cloud.show();
     }
 
-    // Launch fireworks
+    
     if (random(1) < 0.04) {
       fireworks.push(new Firework());
     }
@@ -69,12 +69,12 @@ function drawBackground(alpha) {
   push();
   colorMode(RGB);
 
-  // Draw stars
+  
   for (let star of stars) {
     star.show();
   }
 
-  // Draw moon and skyline
+  
   drawMoon(alpha);
   drawSkyline(alpha);
   pop();
@@ -187,7 +187,7 @@ function mousePressed() {
 class StaticCloud {
   constructor() {
     this.x = random(width);  
-    this.y = random(height / 3, height / 1.5); // Add clouds in mid sky
+    this.y = random(height / 3, height / 1.5); 
     this.size = random(50, 150);  
   }
 
@@ -202,14 +202,14 @@ class Star {
   constructor() {
     this.x = random(width);
 
-    // Randomly position stars in the top half, mid-sky, or bottom half of the canvas
+    
     let zone = random();
     if (zone < 0.5) {
-      this.y = random(height / 20, height / 3); // Most stars stay high in the sky
+      this.y = random(height / 20, height / 3); 
     } else if (zone < 0.8) {
-      this.y = random(height / 3, height / 1.5); // Some stars appear in the mid-sky
+      this.y = random(height / 3, height / 1.5); 
     } else {
-      this.y = random(height / 1.5, height); // A few stars appear near the bottom
+      this.y = random(height / 1.5, height); 
     }
 
     this.brightness = random(150, 255);
