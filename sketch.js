@@ -1,11 +1,12 @@
 const fireworks = [];
 let gravity;
 let isPaused = false;
+let frameCounter = 0;
 const craters = [];
 const buildings = [];
 const windows = [];
 const staticClouds = [];
-const stars = []; 
+const stars = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,13 +16,11 @@ function setup() {
   strokeWeight(4);
   background(0);
 
- 
   for (let i = 0; i < 7; i++) {
     staticClouds.push(new StaticCloud());
   }
 
- 
-  const numStars = 300;
+  const numStars = 50;
   for (let i = 0; i < numStars; i++) {
     stars.push(new Star());
   }
@@ -30,9 +29,21 @@ function setup() {
 function draw() {
   drawBackground(100);
 
+  // Add multi-line small white text at the top left with a black stroke
+  fill(255); // Set text color to white
+  stroke('black'); // Set the stroke color to black
+  strokeWeight(2); // Set the stroke thickness
+  textSize(16);
+  textAlign(LEFT, TOP);
+
+  // Draw each line of text with a black stroke
+  text("Use mouse to toggle windows", 10, 10);
+  text("Use 'P' to pause", 10, 30);
+  text("Made by Elena Lapid", 10, 50);
+
   if (isPaused) {
     push();
-    strokeWeight(20);
+    strokeWeight(5);
     stroke("black");
     fill("white");
     textSize(100);
@@ -44,14 +55,14 @@ function draw() {
     colorMode(RGB);
     background(0, 0, 0, 25);
 
-    
     for (let cloud of staticClouds) {
       cloud.show();
     }
 
-    
-    if (random(1) < 0.04) {
+    frameCounter++;
+    if (frameCounter > 60) {
       fireworks.push(new Firework());
+      frameCounter = 0;
     }
 
     for (let i = fireworks.length - 1; i >= 0; i--) {
@@ -69,12 +80,10 @@ function drawBackground(alpha) {
   push();
   colorMode(RGB);
 
-  
   for (let star of stars) {
     star.show();
   }
 
-  
   drawMoon(alpha);
   drawSkyline(alpha);
   pop();
@@ -83,7 +92,7 @@ function drawBackground(alpha) {
 function drawSkyline(alpha) {
   push();
   if (buildings.length === 0) {
-    const numBuildings = 30;
+    const numBuildings = 25;
     let xOffset = 0;
     for (let i = 0; i < numBuildings; ++i) {
       let buildingHeight = random(height / 30, height / 3);
@@ -146,11 +155,11 @@ function drawMoon(alpha) {
   drawingContext.save();
   push();
   circle(moonX, moonY, moonRadius);
-  pop();  
+  pop();
   drawingContext.clip();
 
   if (craters.length === 0) {
-    const numCraters = 10;
+    const numCraters = 12;
     for (let i = 0; i < numCraters; ++i) {
       let craterWidth = random(moonRadius / 4, moonRadius / 1.5);
       let craterHeight = random(moonRadius / 4, moonRadius / 1.5);
@@ -179,37 +188,35 @@ function mousePressed() {
   for (let i = 0; i < windows.length; i++) {
     let w = windows[i];
     if (mouseX > w[0] && mouseX < w[0] + w[2] && mouseY > w[1] && mouseY < w[1] + w[3]) {
-      w[4] = !w[4]; 
+      w[4] = !w[4];
     }
   }
 }
 
 class StaticCloud {
   constructor() {
-    this.x = random(width);  
-    this.y = random(height / 3, height / 1.5); 
-    this.size = random(50, 150);  
+    this.x = random(width);
+    this.y = random(height / 3, height / 1.5);
+    this.size = random(75, 150);
   }
 
   show() {
-    fill(255, 255, 255, 80);  
+    fill(255, 255, 255, 80);
     noStroke();
-    ellipse(this.x, this.y, this.size, this.size / 2);  
+    ellipse(this.x, this.y, this.size, this.size / 2);
   }
 }
 
 class Star {
   constructor() {
     this.x = random(width);
-
-    
     let zone = random();
     if (zone < 0.5) {
-      this.y = random(height / 20, height / 3); 
+      this.y = random(height / 20, height / 3);
     } else if (zone < 0.8) {
-      this.y = random(height / 3, height / 1.5); 
+      this.y = random(height / 3, height / 1.5);
     } else {
-      this.y = random(height / 1.5, height); 
+      this.y = random(height / 1.5, height);
     }
 
     this.brightness = random(150, 255);
